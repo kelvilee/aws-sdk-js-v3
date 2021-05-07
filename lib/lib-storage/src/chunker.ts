@@ -18,7 +18,7 @@ export const getChunk = (data: BodyDataTypes, partSize: number) => {
   }
   if (typeof (data as any).stream === "function") {
     // approximate support for Blobs.
-    return getChunkStream<ReadableStream>((data as any).stream(), partSize, getDataReadableStream);
+    return getChunkStream<ReadableStream>((data as any).stream() || (data as any).arrayBuffer(), partSize, getDataReadableStream);
   } else if (data instanceof ReadableStream) {
     return getChunkStream<ReadableStream>(data, partSize, getDataReadableStream);
   } else {
